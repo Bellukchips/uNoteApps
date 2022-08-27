@@ -11,6 +11,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  // set orientation vertical
+
   @override
   void initState() {
     SystemChrome.setPreferredOrientations([
