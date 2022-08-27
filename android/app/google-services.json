@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "258949545542",
+    "project_id": "notesapp-458d7",
+    "storage_bucket": "notesapp-458d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258949545542:android:68193d2bebf6d9a5c05447",
+        "android_client_info": {
+          "package_name": "com.bellukstudio.unote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258949545542-pejelfuff6m87fe2t5rlu3tr50jbrugo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bellukstudio.unote",
+            "certificate_hash": "55f78d20daac3e168f3cced5cf7d4a6a960e601c"
+          }
+        },
+        {
+          "client_id": "258949545542-dfhplrejujc99vhb4q42e9fnc5595413.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATIfeUB2tF4-dth4ndFofZp1Fo-EhUtxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258949545542-dfhplrejujc99vhb4q42e9fnc5595413.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

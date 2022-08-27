@@ -1,4 +1,4 @@
-package com.example.u_note_apps
+package com.bellukstudio.unote
 
 import io.flutter.embedding.android.FlutterActivity
 
