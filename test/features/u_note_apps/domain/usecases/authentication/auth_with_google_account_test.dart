@@ -4,21 +4,21 @@ import 'package:mockito/mockito.dart';
 import 'package:u_note_apps/core/usecase/i_usecases.dart';
 import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:mockito/annotations.dart';
-import 'package:u_note_apps/features/u_note_apps/domain/entities/authentication/u_note_apps_authentication.dart';
-import 'package:u_note_apps/features/u_note_apps/domain/repositories/authentication/u_note_apps_authentication_repository.dart';
+import 'package:u_note_apps/features/u_note_apps/data/models/authentication/u_note_authentication_model.dart';
+import 'package:u_note_apps/features/u_note_apps/domain/repositories/authentication/u_note_authentication_repository.dart';
 import 'package:u_note_apps/features/u_note_apps/domain/usecases/usecases.dart';
 //mocks
 import 'auth_with_google_account_test.mocks.dart';
 
-@GenerateMocks([UNoteAppsAuthenticationRepository])
+@GenerateMocks([UNoteAuthenticationRepository])
 void main() {
   late AuthWithGoogleAccountUseCase usecase;
   late MockGoogleSignIn googleSignIn;
-  late UNoteAppsAuthenticationRepository mockRepository;
-  late UNoteAppsAuthenticationEntities mockData =
-      const UNoteAppsAuthenticationEntities(email: 'mock-email', id: 'mock-id');
+  late UNoteAuthenticationRepository mockRepository;
+  late UNoteAuthenticationModel mockData =
+      const UNoteAuthenticationModel(email: 'mock-email', id: 'mock-id');
   setUp(() {
-    mockRepository = MockUNoteAppsAuthenticationRepository();
+    mockRepository = MockUNoteAuthenticationRepository();
     usecase = AuthWithGoogleAccountUseCase(repository: mockRepository);
     googleSignIn = MockGoogleSignIn();
   });
@@ -51,6 +51,7 @@ void main() {
   test('should auth with google repository ', () async {
     //!arrange
     when(mockRepository.authWithGoogleAccount())
+        // ignore: void_checks
         .thenAnswer((_) async => Right(mockData));
     //!act
     final result = await usecase(NoParams());

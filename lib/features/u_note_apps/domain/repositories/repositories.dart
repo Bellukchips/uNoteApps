@@ -1,1 +1,1 @@
-export 'authentication/u_note_apps_authentication_repository.dart';
+export 'authentication/u_note_authentication_repository.dart';
