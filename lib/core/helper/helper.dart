@@ -1,1 +1,1 @@
-export 'bloc_observer.dart';
+export 'bloc_helper/bloc_observer.dart';

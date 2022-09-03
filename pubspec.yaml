@@ -32,14 +32,17 @@ dependencies:
   equatable: ^2.0.3
   firebase_auth: ^3.6.4
   firebase_core: ^1.21.0
+  flow_builder: ^0.0.9
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  formz: ^0.4.1
   get_it: ^7.2.0
   google_sign_in: ^5.4.1
   google_sign_in_mocks: ^0.2.1
   http: ^0.13.5
   internet_connection_checker: ^0.0.1+4
+  logger: ^1.1.0
   resource:
     path: ../../Packages/resource
   shared_preferences: ^2.0.15

@@ -29,7 +29,13 @@ void main() {
     repositoryImpl = UNoteAuthenticationRepositoryImpl(
         network: mockINetworkInfo,
         remoteFirebaseAuth: mockUNoteDataSourceRemoteFirebaseAuth);
+
+    ///
     when(mockUNoteDataSourceRemoteFirebaseAuth.authWithGoogle())
+        .thenAnswer((_) async => uNoteAuthenticationModel);
+    // when(mockUNoteDataSourceRemoteFirebaseAuth.currentUser)
+    //     .thenReturn(uNoteAuthenticationModel);
+    when(mockUNoteDataSourceRemoteFirebaseAuth.logOut())
         .thenAnswer((_) async => uNoteAuthenticationModel);
   });
 
@@ -87,7 +93,6 @@ void main() {
         expect(result, equals(Left(ServerFailures())));
       });
     });
-    // _runTestOffline(() {});
   });
 
   // group('get Current User', () {
@@ -95,10 +100,12 @@ void main() {
   //     //!arrange
   //     when(mockINetworkInfo.isConnected).thenAnswer((_) async => true);
   //     //!act
-  //     await repositoryImpl.authWithGoogleAccount();
+  //     final result = repositoryImpl.currentUser;
   //     //!assert
   //     verify(mockINetworkInfo.isConnected);
+  //     expect(result, equals(uNoteAuthenticationModel));
   //   });
+  // });
 
   //   // _runTestOffline(() {});
   // });
@@ -107,23 +114,46 @@ void main() {
   //     //!arrange
   //     when(mockINetworkInfo.isConnected).thenAnswer((_) async => true);
   //     //!act
-  //     await repositoryImpl.authWithGoogleAccount();
+  //     repositoryImpl.user;
   //     //!assert
   //     verify(mockINetworkInfo.isConnected);
   //   });
-
-  //   // _runTestOffline(() {});
   // });
-  // group('logOut', () {
-  //   test('should check if device is online', () async {
-  //     //!arrange
-  //     when(mockINetworkInfo.isConnected).thenAnswer((_) async => true);
-  //     //!act
-  //     await repositoryImpl.authWithGoogleAccount();
-  //     //!assert
-  //     verify(mockINetworkInfo.isConnected);
-  //   });
-
   //   // _runTestOffline(() {});
-  // });
+  group('logOut', () {
+    test('should check if device is online', () async {
+      //!arrange
+      when(mockINetworkInfo.isConnected).thenAnswer((_) async => true);
+      //!act
+      await repositoryImpl.logOut();
+      //!assert
+      verify(mockINetworkInfo.isConnected);
+    });
+
+    runTestOnline(() {
+      test('should test logout authentication when is successfully', () async {
+       //!arrange
+        when(mockUNoteDataSourceRemoteFirebaseAuth.logOut())
+            .thenAnswer((_) async => uNoteAuthenticationModel);
+        //!act
+        final result = await repositoryImpl.logOut();
+        //!assert
+        verify(mockUNoteDataSourceRemoteFirebaseAuth.logOut());
+        expect(result, equals(const Right(uNoteAuthenticationModel)));
+      });
+
+      test('should test logout when is unsuccessfully', () async {
+        //!arrange
+        when(mockUNoteDataSourceRemoteFirebaseAuth.logOut())
+            .thenThrow(ServerException());
+        //!act
+        final result = await repositoryImpl.logOut();
+        //!assert
+        verify(mockUNoteDataSourceRemoteFirebaseAuth.logOut());
+        expect(result, equals(Left(ServerFailures())));
+      });
+    });
+
+    //   // _runTestOffline(() {});
+  });
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'features/u_note_apps/presentation/pages/pages.dart';
+import 'package:u_note_apps/core/view/app_view.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -35,11 +34,9 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
+  // init data source remote firebase impl
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: IntroPages(),
-    );
+    return const AppView();
   }
 }

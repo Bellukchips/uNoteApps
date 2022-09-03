@@ -7,13 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:u_note_apps/features/u_note_apps/data/datasources/datasources.dart';
-part 'u_note_data_source_firebase_auth_remote.dart';
+part 'u_note_data_source_remote_firebase_auth.dart';
 
-class UNoteFirebaseAuthImpl implements UNoteDataSourceRemoteFirebaseAuth {
+class UNoteDataSourceRemoteFirebaseAuthImpl
+    implements UNoteDataSourceRemoteFirebaseAuth {
   final CacheClient _cacheClient;
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
-  UNoteFirebaseAuthImpl({
+  UNoteDataSourceRemoteFirebaseAuthImpl({
     CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
@@ -71,6 +72,8 @@ class UNoteFirebaseAuthImpl implements UNoteDataSourceRemoteFirebaseAuth {
   Future<UNoteAuthenticationModel> logOut() async {
     try {
       await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
+      _cacheClient.write<UNoteAuthenticationModel>(
+          key: userCacheKey, value: null);
       return const UNoteAuthenticationModel(
           email: '', id: '', name: '', photo: '');
     } catch (_) {

@@ -5,7 +5,8 @@ import 'package:u_note_apps/features/u_note_apps/domain/repositories/repositorie
 
 import '../../../../../core/usecase/i_usecases.dart';
 
-class AuthWithGoogleAccountUseCase implements IUseCase<void, NoParams> {
+class AuthWithGoogleAccountUseCase
+    implements IUseCase<UNoteAuthenticationEntities, NoParams> {
   final UNoteAuthenticationRepository repository;
   AuthWithGoogleAccountUseCase({
     required this.repository,
@@ -14,7 +15,15 @@ class AuthWithGoogleAccountUseCase implements IUseCase<void, NoParams> {
   //! call interface class from [UNoteAppsAuthenticationRepository]
 
   @override
-  Future<Either<Failures, UNoteAuthenticationEntities>> call(NoParams params) {
-    return repository.authWithGoogleAccount();
+  Future<Either<Failures, UNoteAuthenticationEntities>> call(NoParams params) async{
+    return await repository.authWithGoogleAccount();
+  }
+
+  UNoteAuthenticationEntities get currentUser {
+    return repository.currentUser;
+  }
+
+  Stream<UNoteAuthenticationEntities> get user {
+    return repository.user;
   }
 }

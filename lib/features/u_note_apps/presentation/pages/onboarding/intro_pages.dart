@@ -8,7 +8,7 @@ part 'components/content_intro_pages.dart';
 
 class IntroPages extends StatelessWidget {
   const IntroPages({Key? key}) : super(key: key);
-
+  static Page<void> page() => const MaterialPage<void>(child: IntroPages());
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
