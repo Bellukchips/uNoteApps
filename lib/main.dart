@@ -20,7 +20,7 @@ Future<void> main() async {
   // set status bar color
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFFFFBD13),
+        statusBarColor: Color.fromARGB(255, 255, 255, 255),
         statusBarBrightness: Brightness.light),
   );
 

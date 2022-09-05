@@ -42,9 +42,9 @@ class UNoteDataSourceRemoteFirebaseAuthImpl
         credential = userCredential.credential!;
       } else {
         final googleUser = await _googleSignIn.signIn();
-        final googleAuth = await googleUser!.authentication;
+        final googleAuth = await googleUser?.authentication;
         credential = firebase_auth.GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
+          accessToken: googleAuth!.accessToken,
           idToken: googleAuth.idToken,
         );
       }

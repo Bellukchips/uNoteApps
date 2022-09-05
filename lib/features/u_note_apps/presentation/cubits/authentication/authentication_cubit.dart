@@ -5,6 +5,8 @@ import 'package:logger/logger.dart';
 
 import 'package:u_note_apps/features/u_note_apps/data/datasources/datasources.dart';
 
+import '../../../../../core/errors/errors.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
@@ -16,16 +18,23 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   var logger = Logger();
 
   Future<void> logInWithGoogle() async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(
+        status: FormzStatus.submissionInProgress, errorMessage: 'Loading'));
     try {
       await _authImpl.authWithGoogle();
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } on Exception catch (e) {
-      logger.d(e.toString());
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    } on NoSuchMethodError catch (e) {
-      logger.d(e.toString());
-      emit(state.copyWith(status: FormzStatus.pure));
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          errorMessage: 'Authentication Success'));
+    } on LogInWithGoogleFailure catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.message,
+          status: FormzStatus.submissionFailure,
+        ),
+      );
+    } catch (_) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, errorMessage: 'Failure'));
     }
   }
 }

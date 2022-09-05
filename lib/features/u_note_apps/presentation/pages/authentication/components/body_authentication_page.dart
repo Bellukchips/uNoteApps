@@ -16,7 +16,7 @@ class _BodyAuthenticationPageState extends State<BodyAuthenticationPage> {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? 'Authentication Failure'),
+                content: Text(state.errorMessage),
               ),
             );
         }

@@ -10,9 +10,11 @@ class UNoteAuthenticationModel extends UNoteAuthenticationEntities {
       UNoteAuthenticationModel(id: '', email: '', name: '', photo: '');
 
   /// checking current user is empty
+  @override
   bool get isEmpty => this == UNoteAuthenticationModel.empty;
 
   /// checking current user is not empty
+  @override
   bool get isNotEmpty => this != UNoteAuthenticationModel.empty;
 
   UNoteAuthenticationModel copyWith({

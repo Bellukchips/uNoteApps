@@ -2,14 +2,14 @@ part of 'authentication_cubit.dart';
 
 class AuthenticationState extends Equatable {
   final FormzStatus status;
-  final String? errorMessage;
+  final String errorMessage;
   const AuthenticationState({
     this.status = FormzStatus.pure,
-    this.errorMessage,
+    this.errorMessage = "Loading",
   });
 
   @override
-  List<Object> get props => [status, errorMessage!];
+  List<Object> get props => [status, errorMessage];
 
   AuthenticationState copyWith({
     FormzStatus? status,
