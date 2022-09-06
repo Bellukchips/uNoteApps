@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:logger/logger.dart';
 
 import 'package:u_note_apps/features/u_note_apps/data/datasources/datasources.dart';
 
@@ -15,7 +14,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   ) : super(const AuthenticationState());
 
   final UNoteDataSourceRemoteFirebaseAuthImpl _authImpl;
-  var logger = Logger();
 
   Future<void> logInWithGoogle() async {
     emit(state.copyWith(

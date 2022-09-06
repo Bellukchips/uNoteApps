@@ -38,8 +38,6 @@ class _AppState extends State<App> {
   // init data source remote firebase impl
   @override
   Widget build(BuildContext context) {
-    return AppView(
-      authenticationRepositoryImpl: UNoteDataSourceRemoteFirebaseAuthImpl(),
-    );
+    return const AppView();
   }
 }

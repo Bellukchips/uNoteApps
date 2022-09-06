@@ -24,9 +24,13 @@ class UNoteBloc extends Bloc<UNoteEvent, UNoteState> {
         _dataSourceRemoteFirebaseAuthImpl =
             uNoteDataSourceRemoteFirebaseAuthImpl,
         _logoutGoogleAccountUseCase = logoutGoogleAccountUseCase,
-        super(authWithGoogleAccountUseCase.currentUser.isNotEmpty
-            ? UNoteState.authenticated(authWithGoogleAccountUseCase.currentUser)
-            : const UNoteState.unauthenticated()) {
+        super(uNoteDataSourceRemoteFirebaseAuthImpl.currentUser.isNotEmpty
+            ? UNoteState.authenticated(
+                uNoteDataSourceRemoteFirebaseAuthImpl.currentUser)
+            : uNoteDataSourceRemoteFirebaseAuthImpl.currentUser.isEmpty
+                ? const UNoteState.unauthenticated()
+                : const UNoteState.initial()) {
+    on<UNoteInitial>(_initial);
     on<UNoteUserChanged>(_onUserChanged);
     on<UNoteLogoutRequested>(_onLogoutRequested);
     _streamSubscription = _dataSourceRemoteFirebaseAuthImpl.user.listen((user) {
@@ -41,13 +45,22 @@ class UNoteBloc extends Bloc<UNoteEvent, UNoteState> {
   var logger = Logger();
   void _onUserChanged(UNoteUserChanged event, Emitter<UNoteState> emit) {
     logger.d(event.user);
-    emit(event.user.isNotEmpty
-        ? UNoteState.authenticated(event.user)
-        : const UNoteState.unauthenticated());
+    emit(const UNoteState.loading());
+    if (event.user.isNotEmpty) {
+      emit(UNoteState.authenticated(event.user));
+    } else {
+      emit(const UNoteState.unauthenticated());
+    }
+  }
+
+  void _initial(UNoteInitial event, Emitter<UNoteState> emit) {
+    emit(const UNoteState.initial());
+    emit(const UNoteState.loading());
   }
 
   void _onLogoutRequested(
       UNoteLogoutRequested event, Emitter<UNoteState> emit) {
+    emit(const UNoteState.loading());
     unawaited(_logoutGoogleAccountUseCase(NoParams()));
   }
 

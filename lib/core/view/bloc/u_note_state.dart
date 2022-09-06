@@ -13,6 +13,7 @@ class UNoteState extends Equatable {
             appStatus: AppStatus.authenticated,
             uNoteAuthenticationModel: model);
   const UNoteState.loading() : this._(appStatus: AppStatus.loading);
+  const UNoteState.initial() : this._(appStatus: AppStatus.initial);
   const UNoteState.unauthenticated()
       : this._(appStatus: AppStatus.unauthenticated);
   @override

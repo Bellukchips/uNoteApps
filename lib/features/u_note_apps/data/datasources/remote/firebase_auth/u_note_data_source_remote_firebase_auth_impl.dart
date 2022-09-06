@@ -74,8 +74,7 @@ class UNoteDataSourceRemoteFirebaseAuthImpl
       await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
       _cacheClient.write<UNoteAuthenticationModel>(
           key: userCacheKey, value: null);
-      return const UNoteAuthenticationModel(
-          email: '', id: '', name: '', photo: '');
+      return UNoteAuthenticationModel.empty;
     } catch (_) {
       throw ServerFailures();
     }

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:u_note_apps/core/enum/enum.dart';
 import 'package:u_note_apps/features/u_note_apps/presentation/pages/features/home_page.dart';
@@ -11,11 +11,13 @@ List<Page<dynamic>> onGenerateAppViewPages(
   var logger = Logger();
   switch (state) {
     case AppStatus.authenticated:
-      logger.d('authenticated');
+      logger.d('authenticated route');
       return [HomePage.page()];
     case AppStatus.unauthenticated:
+      logger.d('unauthenticated route');
+      return [IntroPages.page()];
     default:
-      logger.d('unauthenticated');
+      logger.d('default route');
       return [IntroPages.page()];
   }
 }

@@ -1,1 +1,1 @@
-enum AppStatus { authenticated, unauthenticated, loading }
+enum AppStatus { initial, authenticated, unauthenticated, loading }
