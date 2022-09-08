@@ -16,29 +16,25 @@ part 'u_note_state.dart';
 
 class UNoteBloc extends Bloc<UNoteEvent, UNoteState> {
   UNoteBloc(
-      {required AuthWithGoogleAccountUseCase authWithGoogleAccountUseCase,
-      required LogoutGoogleAccountUseCase logoutGoogleAccountUseCase,
+      {required LogoutGoogleAccountUseCase logoutGoogleAccountUseCase,
       required UNoteDataSourceRemoteFirebaseAuthImpl
           uNoteDataSourceRemoteFirebaseAuthImpl})
-      : _authWithGoogleAccountUseCase = authWithGoogleAccountUseCase,
-        _dataSourceRemoteFirebaseAuthImpl =
+      : _dataSourceRemoteFirebaseAuthImpl =
             uNoteDataSourceRemoteFirebaseAuthImpl,
         _logoutGoogleAccountUseCase = logoutGoogleAccountUseCase,
         super(uNoteDataSourceRemoteFirebaseAuthImpl.currentUser.isNotEmpty
             ? UNoteState.authenticated(
                 uNoteDataSourceRemoteFirebaseAuthImpl.currentUser)
-            : uNoteDataSourceRemoteFirebaseAuthImpl.currentUser.isEmpty
-                ? const UNoteState.unauthenticated()
-                : const UNoteState.initial()) {
-    on<UNoteInitial>(_initial);
+            : const UNoteState.unauthenticated()) {
     on<UNoteUserChanged>(_onUserChanged);
     on<UNoteLogoutRequested>(_onLogoutRequested);
-    _streamSubscription = _dataSourceRemoteFirebaseAuthImpl.user.listen((user) {
+    _streamSubscription =
+        _dataSourceRemoteFirebaseAuthImpl.user.listen((user) async {
+      logger.d(user);
       return add(UNoteUserChanged(user));
     });
   }
 
-  final AuthWithGoogleAccountUseCase _authWithGoogleAccountUseCase;
   final LogoutGoogleAccountUseCase _logoutGoogleAccountUseCase;
   final UNoteDataSourceRemoteFirebaseAuthImpl _dataSourceRemoteFirebaseAuthImpl;
   late final StreamSubscription<UNoteAuthenticationModel> _streamSubscription;
@@ -46,16 +42,9 @@ class UNoteBloc extends Bloc<UNoteEvent, UNoteState> {
   void _onUserChanged(UNoteUserChanged event, Emitter<UNoteState> emit) {
     logger.d(event.user);
     emit(const UNoteState.loading());
-    if (event.user.isNotEmpty) {
-      emit(UNoteState.authenticated(event.user));
-    } else {
-      emit(const UNoteState.unauthenticated());
-    }
-  }
-
-  void _initial(UNoteInitial event, Emitter<UNoteState> emit) {
-    emit(const UNoteState.initial());
-    emit(const UNoteState.loading());
+    return event.user.isNotEmpty
+        ? emit(UNoteState.authenticated(event.user))
+        : const UNoteState.unauthenticated();
   }
 
   void _onLogoutRequested(

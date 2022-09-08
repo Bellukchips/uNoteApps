@@ -10,6 +10,7 @@ class AppView extends StatelessWidget {
   const AppView({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +18,9 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: FlowBuilder<AppStatus>(
         state: context.select((UNoteBloc bloc) => bloc.state.appStatus),
-        onGeneratePages: onGenerateAppViewPages,
+        onGeneratePages: ((state, pages) {
+          return onGenerateAppViewPages(state, pages);
+        }),
       ),
     );
   }

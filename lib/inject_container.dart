@@ -18,7 +18,6 @@ class InjectionContainer {
     //!core -> view -> bloc
     sl.registerFactory(() => UNoteBloc(
         uNoteDataSourceRemoteFirebaseAuthImpl: sl(),
-        authWithGoogleAccountUseCase: sl(),
         logoutGoogleAccountUseCase: sl()));
     //!Cubits
     sl.registerFactory(() => AuthenticationCubit(sl()));

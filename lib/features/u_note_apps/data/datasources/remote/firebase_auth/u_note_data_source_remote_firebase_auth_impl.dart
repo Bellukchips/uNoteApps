@@ -57,7 +57,7 @@ class UNoteDataSourceRemoteFirebaseAuthImpl
           photo: signIn.user?.photoURL);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
+    } on ServerException {
       throw const LogInWithGoogleFailure();
     }
   }
@@ -72,10 +72,10 @@ class UNoteDataSourceRemoteFirebaseAuthImpl
   Future<UNoteAuthenticationModel> logOut() async {
     try {
       await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
-      _cacheClient.write<UNoteAuthenticationModel>(
-          key: userCacheKey, value: null);
+      // _cacheClient.write<UNoteAuthenticationModel>(
+      //     key: userCacheKey, value: null);
       return UNoteAuthenticationModel.empty;
-    } catch (_) {
+    } on ServerException {
       throw ServerFailures();
     }
   }

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:u_note_apps/features/u_note_apps/data/datasources/datasources.dart';
 import 'package:u_note_apps/features/u_note_apps/presentation/cubits/cubits.dart';
 import 'app.dart';
 import 'core/helper/helper.dart';
@@ -23,13 +24,18 @@ Future<void> main() async {
         statusBarColor: Color.fromARGB(255, 255, 255, 255),
         statusBarBrightness: Brightness.light),
   );
-
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(
-      create: ((context) => sl<UNoteBloc>()),
-    ),
-    BlocProvider(
-      create: (context) => sl<AuthenticationCubit>(),
-    )
-  ], child: const App()));
+  // data source
+  final unoteDataSource = UNoteDataSourceRemoteFirebaseAuthImpl();
+  await unoteDataSource.user.first;
+  runApp(RepositoryProvider.value(
+    value: unoteDataSource,
+    child: MultiBlocProvider(providers: [
+      BlocProvider(
+        create: ((context) => sl<UNoteBloc>()),
+      ),
+      BlocProvider(
+        create: (context) => sl<AuthenticationCubit>(),
+      )
+    ], child: const App()),
+  ));
 }

@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:u_note_apps/core/view/bloc/u_note_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-  static Page<void> page() => const MaterialPage<void>(child: HomePage());
-}
-
-class _HomePageState extends State<HomePage> {
+  static Page page() => const MaterialPage<void>(child: HomePage());
   @override
   Widget build(BuildContext context) {
     final user =

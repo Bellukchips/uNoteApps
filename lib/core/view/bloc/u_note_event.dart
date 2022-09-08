@@ -7,8 +7,6 @@ abstract class UNoteEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UNoteInitial extends UNoteEvent {}
-
 class UNoteLoading extends UNoteEvent {}
 
 class UNoteLogoutRequested extends UNoteEvent {}
