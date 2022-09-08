@@ -12,10 +12,10 @@ class NoParams extends Equatable {
 }
 
 class Params extends Equatable {
-  final int number;
+  final dynamic param;
   const Params({
-    required this.number,
+    required this.param,
   });
   @override
-  List<Object?> get props => [number];
+  List<Object?> get props => [param];
 }

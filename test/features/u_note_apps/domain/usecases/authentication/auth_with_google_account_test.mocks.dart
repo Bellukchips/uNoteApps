@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:dartz/dartz.dart' as _i2;
+import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:u_note_apps/core/errors/errors.dart' as _i5;
+import 'package:u_note_apps/core/errors/errors.dart' as _i6;
 import 'package:u_note_apps/features/u_note_apps/domain/entities/entities.dart'
-    as _i6;
-import 'package:u_note_apps/features/u_note_apps/domain/repositories/authentication/u_note_apps_authentication_repository.dart'
-    as _i3;
+    as _i2;
+import 'package:u_note_apps/features/u_note_apps/domain/repositories/authentication/u_note_authentication_repository.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,28 +24,53 @@ import 'package:u_note_apps/features/u_note_apps/domain/repositories/authenticat
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(Object parent, Invocation parentInvocation)
+class _FakeUNoteAuthenticationEntities_0 extends _i1.SmartFake
+    implements _i2.UNoteAuthenticationEntities {
+  _FakeUNoteAuthenticationEntities_0(Object parent, Invocation parentInvocation)
       : super(parent, parentInvocation);
 }
 
-/// A class which mocks [UNoteAppsAuthenticationRepository].
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
+}
+
+/// A class which mocks [UNoteAuthenticationRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUNoteAppsAuthenticationRepository extends _i1.Mock
-    implements _i3.UNoteAppsAuthenticationRepository {
-  MockUNoteAppsAuthenticationRepository() {
+class MockUNoteAuthenticationRepository extends _i1.Mock
+    implements _i4.UNoteAuthenticationRepository {
+  MockUNoteAuthenticationRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failures, _i6.UNoteAppsAuthenticationEntities>>
+  _i5.Stream<_i2.UNoteAuthenticationEntities> get user =>
+      (super.noSuchMethod(Invocation.getter(#user),
+              returnValue: _i5.Stream<_i2.UNoteAuthenticationEntities>.empty())
+          as _i5.Stream<_i2.UNoteAuthenticationEntities>);
+  @override
+  _i2.UNoteAuthenticationEntities get currentUser =>
+      (super.noSuchMethod(Invocation.getter(#currentUser),
+              returnValue: _FakeUNoteAuthenticationEntities_0(
+                  this, Invocation.getter(#currentUser)))
+          as _i2.UNoteAuthenticationEntities);
+  @override
+  _i5.Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>
       authWithGoogleAccount() => (super.noSuchMethod(
           Invocation.method(#authWithGoogleAccount, []),
           returnValue:
-              _i4.Future<_i2.Either<_i5.Failures, _i6.UNoteAppsAuthenticationEntities>>.value(
-                  _FakeEither_0<_i5.Failures, _i6.UNoteAppsAuthenticationEntities>(
+              _i5.Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>.value(
+                  _FakeEither_1<_i6.Failures, _i2.UNoteAuthenticationEntities>(
                       this,
-                      Invocation.method(#authWithGoogleAccount, [])))) as _i4
-          .Future<_i2.Either<_i5.Failures, _i6.UNoteAppsAuthenticationEntities>>);
+                      Invocation.method(#authWithGoogleAccount, [])))) as _i5
+          .Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>);
+  @override
+  _i5.Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>
+      logOut() => (super.noSuchMethod(Invocation.method(#logOut, []),
+          returnValue:
+              _i5.Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>.value(
+                  _FakeEither_1<_i6.Failures, _i2.UNoteAuthenticationEntities>(
+                      this, Invocation.method(#logOut, [])))) as _i5
+          .Future<_i3.Either<_i6.Failures, _i2.UNoteAuthenticationEntities>>);
 }

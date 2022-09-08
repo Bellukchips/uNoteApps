@@ -8,11 +8,17 @@ part 'components/content_intro_pages.dart';
 
 class IntroPages extends StatelessWidget {
   const IntroPages({Key? key}) : super(key: key);
+  static Page page() => const MaterialPage(child: IntroPages());
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: BodyIntroPages()),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: const Scaffold(
+        body: SafeArea(child: BodyIntroPages()),
+      ),
     );
   }
 }

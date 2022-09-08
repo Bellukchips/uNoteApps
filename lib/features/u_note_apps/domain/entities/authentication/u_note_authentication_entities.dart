@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:u_note_apps/features/u_note_apps/data/models/models.dart';
 
-class UNoteAppsAuthenticationEntities extends Equatable {
+class UNoteAuthenticationEntities extends Equatable {
   /// get email user
   final String? email;
 
@@ -13,16 +14,13 @@ class UNoteAppsAuthenticationEntities extends Equatable {
   /// get photo url user
   final String? photo;
 
-  ///empty user which represents an unauthenticated user
-  static const empty = UNoteAppsAuthenticationEntities(id: '');
-
   /// checking current user is empty
-  bool get isEmpty => this == UNoteAppsAuthenticationEntities.empty;
+  bool get isEmpty => this == UNoteAuthenticationModel.empty;
 
   /// checking current user is not empty
-  bool get isNotEmpty => this != UNoteAppsAuthenticationEntities.empty;
+  bool get isNotEmpty => this != UNoteAuthenticationModel.empty;
 
-  const UNoteAppsAuthenticationEntities({
+  const UNoteAuthenticationEntities({
     this.email,
     this.id,
     this.name,
